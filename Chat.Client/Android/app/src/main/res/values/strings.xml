@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Chat-With-Stranger</string>
+    <string name="username">Username</string>
+    <string name="welcome">WELCOME</string>
+    <string name="connect">Connect</string>
+    <string name="your_name">Your name</string>
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data class="LayoutSendMessageBinding">
+        <variable
+            name="message"
+            type="com.duyquangnvx.chat_with_stranger.model.Message" />
+    </data>
+
+    <RelativeLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="300dp"
+        android:padding="8dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/bg_bubble_send"
+            android:fontFamily="@font/poppins_semibold"
+            android:padding="10dp"
+            android:text="@{message.content}"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_message"
+            android:layout_alignEnd="@+id/tv_message"
+            android:text="@{message.time}"
+            android:textSize="12sp"
+            android:layout_marginTop="2dp"/>
+
+    </RelativeLayout>
+</layout>
+

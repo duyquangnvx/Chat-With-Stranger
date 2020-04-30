@@ -1,7 +1,13 @@
-package com.duyquangnvx.chat_with_stranger.View;
+package com.duyquangnvx.chat_with_stranger.view;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -9,13 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.duyquangnvx.chat_with_stranger.Utils.NetworkUtils;
+import com.duyquangnvx.chat_with_stranger.utils.NetworkUtils;
 import com.duyquangnvx.chat_with_stranger.viewmodel.BaseViewModel;
 
 public abstract class BaseActivity <T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity {
     private ProgressDialog mProgressDialog = null;
-    private T mViewDataBinding;
-    private V mViewModel;
+    private T dataBinding;
+    private V viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,10 +32,10 @@ public abstract class BaseActivity <T extends ViewDataBinding, V extends BaseVie
     }
 
     private void performDataBinding() {
-        mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
-        mViewModel = mViewModel == null ? getViewModel() : mViewModel;
-        mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
-        mViewDataBinding.executePendingBindings();
+        dataBinding = DataBindingUtil.setContentView(this, getLayoutId());
+        viewModel = viewModel == null ? getViewModel() : viewModel;
+        dataBinding.setVariable(getBindingVariable(), viewModel);
+        dataBinding.executePendingBindings();
     }
 
     public boolean isNetworkConnected() {
@@ -38,7 +44,7 @@ public abstract class BaseActivity <T extends ViewDataBinding, V extends BaseVie
 
 
     public T getViewDataBinding() {
-        return mViewDataBinding;
+        return this.dataBinding;
     }
 
     /**
@@ -115,4 +121,24 @@ public abstract class BaseActivity <T extends ViewDataBinding, V extends BaseVie
         }
     }*/
 
+    /**
+     *  Lose focus when click outside EditText
+     *  Ref: https://stackoverflow.com/a/28939113/11747420
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
+    }
 }

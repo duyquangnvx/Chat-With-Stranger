@@ -1,20 +1,18 @@
 package com.duyquangnvx.chat_with_stranger.viewmodel;
 
 import android.util.Log;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
-import androidx.databinding.Bindable;
-
-import com.duyquangnvx.chat_with_stranger.Model.User;
+import com.duyquangnvx.chat_with_stranger.model.User;
 
 public class LoginViewModel extends BaseViewModel {
-    public User user;
+    private User user;
+    private MutableLiveData<Boolean> isLoginSuccess;
 
     public LoginViewModel() {
         this.user = new User();
-    }
-
-    public void onClickConnect(){
-        Log.d(LoginViewModel.class.getSimpleName(), getUsername());
+        this.isLoginSuccess = new MutableLiveData<>();
     }
 
     public void setUsername(String username){
@@ -23,5 +21,15 @@ public class LoginViewModel extends BaseViewModel {
 
     public String getUsername(){
         return user.getUsername();
+    }
+
+    public void onClickConnect(){
+        Log.d(LoginViewModel.class.getSimpleName(), getUsername());
+        User.MY_ID = this.user.getUsername();
+        this.isLoginSuccess.setValue(true);
+    }
+
+    public LiveData<Boolean> isLoginSuccess() {
+        return this.isLoginSuccess;
     }
 }

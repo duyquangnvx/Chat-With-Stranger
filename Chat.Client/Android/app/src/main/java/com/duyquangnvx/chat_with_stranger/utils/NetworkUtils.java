@@ -1,4 +1,4 @@
-package com.duyquangnvx.chat_with_stranger.Utils;
+package com.duyquangnvx.chat_with_stranger.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

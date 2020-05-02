@@ -13,13 +13,24 @@
         >
 
         <TextView
+            android:id="@+id/tv_sender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/tv_message"
+            android:text="@{message.sender.username}"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="12dp"
+            />
+
+        <TextView
             android:id="@+id/tv_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_below="@id/tv_sender"
             android:background="@drawable/bg_bubble_send"
             android:fontFamily="@font/poppins_semibold"
-            android:padding="10dp"
+            android:padding="8dp"
             android:text="@{message.content}"
             android:textColor="@android:color/black" />
 

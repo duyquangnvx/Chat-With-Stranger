@@ -2,19 +2,19 @@ package com.duyquangnvx.chat_with_stranger.model;
 
 public class Message {
     private User sender;
-    private String time;
     private String content;
+    private String time;
 
     public Message() {
         this.sender = new User();
-        this.time = "";
         this.content = "";
+        this.time = "";
     }
 
-    public Message(User sender, String time, String content) {
+    public Message(User sender, String content, String time) {
         this.sender = sender;
-        this.time = time;
         this.content = content;
+        this.time = time;
     }
 
     public User getSender() {
@@ -25,19 +25,19 @@ public class Message {
         this.sender = sender;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.Observer;
 
 import com.duyquangnvx.chat_with_stranger.utils.NetworkUtils;
 import com.duyquangnvx.chat_with_stranger.viewmodel.BaseViewModel;
@@ -29,6 +30,8 @@ public abstract class BaseActivity <T extends ViewDataBinding, V extends BaseVie
 
         //isNetworkConnected = isNetworkConnected();
         performDataBinding();
+
+        liveProgressState();
     }
 
     private void performDataBinding() {
@@ -89,6 +92,20 @@ public abstract class BaseActivity <T extends ViewDataBinding, V extends BaseVie
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
+    }
+
+    void liveProgressState() {
+        this.viewModel.isShowProgress().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    showProgressLoading();
+                    updateMessageProgressDialog(viewModel.getProgressMessage());
+                } else {
+                    dismissProgressLoading();
+                }
+            }
+        });
     }
 
     /*void setOnNetworkActiveListener(ConnectivityManager.OnNetworkActiveListener onNetworkActiveListener) {

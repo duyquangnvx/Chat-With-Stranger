@@ -80,7 +80,7 @@
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@={chatViewModel.message}"
-                />
+                android:inputType="textCapSentences"/>
 
             <ImageButton
                 android:id="@+id/btn_send"
@@ -89,7 +89,7 @@
                 android:background="@null"
                 android:src="@drawable/ic_send"
                 android:layout_gravity="center_vertical"
-                />
+                android:onClick="@{() -> chatViewModel.onClickSendMessage()}"/>
 
         </LinearLayout>
 

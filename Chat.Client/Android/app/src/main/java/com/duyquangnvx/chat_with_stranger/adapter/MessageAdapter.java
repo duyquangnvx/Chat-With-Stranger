@@ -11,12 +11,17 @@ import com.duyquangnvx.chat_with_stranger.model.User;
 import com.duyquangnvx.chat_with_stranger.viewholder.BaseViewHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MessageAdapter extends BaseAdapter<Message, BaseViewHolder> {
     private static int SEND_TYPE = 1;
     private static int RECEIVE_TYPE = 2;
 
     public MessageAdapter(ArrayList<Message> data) {
+        super(data);
+    }
+
+    public MessageAdapter(List<Message> data) {
         super(data);
     }
 
@@ -43,7 +48,7 @@ public class MessageAdapter extends BaseAdapter<Message, BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return this.getItem(position).getSender().getUsername().equals(User.MY_ID) ? SEND_TYPE : RECEIVE_TYPE;
+        return this.getItem(position).getSender().isMe() ? SEND_TYPE : RECEIVE_TYPE;
     }
 
     @Override

@@ -3,9 +3,10 @@ package com.duyquangnvx.chat_with_stranger.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 
 import androidx.databinding.library.baseAdapters.BR;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.duyquangnvx.chat_with_stranger.R;
@@ -24,7 +25,15 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatViewMode
         dataBinding.rvMessages.setLayoutManager(manager);
         dataBinding.rvMessages.setAdapter(adapter);
 
-        Log.d(ChatActivity.class.getSimpleName(), String.valueOf(adapter.getItemCount()));
+        chatViewModel.isReceived().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    adapter.notifyDataSetChanged();
+                    dataBinding.edtContent.setText("");
+                }
+            }
+        });;
     }
 
     public static Intent getStartIntent(Context context) {

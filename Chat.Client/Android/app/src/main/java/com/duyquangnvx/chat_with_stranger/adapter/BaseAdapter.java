@@ -8,17 +8,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.duyquangnvx.chat_with_stranger.viewholder.BaseViewHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseAdapter <T, VH extends BaseViewHolder> extends RecyclerView.Adapter<VH> {
-    private ArrayList<T> items;
+    private List<T> items;
 
     public BaseAdapter(ArrayList<T> data) {
         this.items = data;
     }
 
+    public BaseAdapter(List<T> data) { this.items = data; }
+
     public T getItem(int position) {return  items == null? null : items.get(position);}
 
-    public ArrayList<T> getItems() {return items;}
+    public List<T> getItems() {return items;}
 
     abstract void setData(VH holder, T data);
 
